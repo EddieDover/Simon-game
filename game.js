@@ -60,7 +60,7 @@ function compareButtonClicked(buttonClicked) {
   // } else {
   //   console.log("Oops wrong color");
   // }
-  let newColorIndex = userClickedPattern.length;
+  let newColorIndex = userClickedPattern.length - 1;
   console.log("NEW COLOR", userClickedPattern[newColorIndex]);
   console.log("GAME PATTERN COLOR", gamePattern[newColorIndex]);
 
@@ -70,12 +70,37 @@ function compareButtonClicked(buttonClicked) {
       console.log("going to next sequence");
       console.log("userClickedPattern", userClickedPattern);
       nextSequence();
+      userClickedPattern.length[0];
     } else {
       console.log("continuing");
     }
   } else {
     console.log("oops wrong color");
+    $("h1").text("Game Over" + "\n" + "Press Any Key to start again!");
+
+    gameStart = false;
+    $(document).one("keypress", (e) => {
+      gameStart = true;
+      console.log(e);
+      gamePattern = [];
+      userClickedPattern = [];
+      level = 0;
+      //initiates the game
+      nextSequence();
+    });
   }
+  // if (userClickedPattern[newColorIndex] === gamePattern[newColorIndex]) {
+  //   console.log("correct color chosen");
+  //   if (userClickedPattern.length === gamePattern.length) {
+  //     console.log("going to next sequence");
+  //     console.log("userClickedPattern", userClickedPattern);
+  //     nextSequence();
+  //   } else {
+  //     console.log("continuing");
+  //   }
+  // } else {
+  //   console.log("oops wrong color");
+  // }
 
   // userClickedPattern.forEach((clickedColor, index) => {
   //   if (userClickedPattern.length === gamePattern.length) {
