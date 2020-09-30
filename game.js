@@ -52,11 +52,11 @@ function compareButtonClicked(buttonClicked) {
 
   if (!failed) {
     console.log("correct pattern!");
-    if (
-      userClickedPattern.length == gamePattern.length &&
-      arrayEquals(userClickedPattern, gamePattern)
-    )
-      nextSequence();
+    if ( userClickedPattern.length == gamePattern.length &&
+         arrayEquals(userClickedPattern, gamePattern)) 
+      {
+        setTimeout(()=> { nextSequence(); }, 500 );
+      }
   } else {
     console.log("FAILED");
 
@@ -97,15 +97,11 @@ function nextSequence() {
   //playSounds(randomChosenColour);
   //highlights color picked]
   //console.log("new color", randomChosenColour);
-  gamePattern.forEach((randomChosenColour) => {
+  gamePattern.forEach((randomChosenColour, index) => {
     setTimeout(() => {
-      5000;
       $(`#${randomChosenColour}`).fadeOut(100).fadeIn(100);
-    });
-    setTimeout(() => {
-      5000;
       playSounds(randomChosenColour);
-    });
+    }, 500 * index);
     //$(`#${randomChosenColour}`).fadeOut(100).fadeIn(100);
   });
   //$(`#${randomChosenColour}`).fadeOut(100).fadeIn(100);
