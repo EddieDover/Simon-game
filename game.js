@@ -80,7 +80,7 @@ function compareButtonClicked(buttonClicked) {
       //$("h1").text("Game Over!" + "/n" + "Press Any Key to Start Over");
       //game level
       level = 0;
-      //initiates the game
+      //initiates the game over
       nextSequence();
     });
   }
