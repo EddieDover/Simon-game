@@ -52,6 +52,7 @@ function compareButtonClicked(buttonClicked) {
 
   if (!failed) {
     console.log("correct pattern!");
+<<<<<<< HEAD
     if (
       userClickedPattern.length == gamePattern.length &&
       arrayEquals(userClickedPattern, gamePattern)
@@ -60,6 +61,13 @@ function compareButtonClicked(buttonClicked) {
         nextSequence();
       }, 500);
     }
+=======
+    if ( userClickedPattern.length == gamePattern.length &&
+         arrayEquals(userClickedPattern, gamePattern)) 
+      {
+        setTimeout(()=> { nextSequence(); }, 500 );
+      }
+>>>>>>> c6ecebcf028220e62cb03b3a23e1f9161f08e81a
   } else {
     console.log("FAILED");
 
