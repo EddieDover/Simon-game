@@ -55,8 +55,11 @@ function compareButtonClicked(buttonClicked) {
     if (
       userClickedPattern.length == gamePattern.length &&
       arrayEquals(userClickedPattern, gamePattern)
-    )
-      nextSequence();
+    ) {
+      setTimeout(() => {
+        nextSequence();
+      }, 500);
+    }
   } else {
     console.log("FAILED");
 
@@ -65,9 +68,21 @@ function compareButtonClicked(buttonClicked) {
 
     //user clicked pattern
     userClickedPattern = [];
-
-    //game level
-    level = 0;
+    $("h1").text("Game Over!" + "\nPress Any Key to Start Over");
+    var audio = new Audio("sounds/wrong.mp3");
+    setTimeout(() => {
+      audio.play();
+    }, 100);
+    gameStart = false;
+    $(document).one("keypress", (e) => {
+      gameStart = true;
+      console.log(e);
+      //$("h1").text("Game Over!" + "/n" + "Press Any Key to Start Over");
+      //game level
+      level = 0;
+      //initiates the game
+      nextSequence();
+    });
   }
 }
 
@@ -97,15 +112,11 @@ function nextSequence() {
   //playSounds(randomChosenColour);
   //highlights color picked]
   //console.log("new color", randomChosenColour);
-  gamePattern.forEach((randomChosenColour) => {
+  gamePattern.forEach((randomChosenColour, index) => {
     setTimeout(() => {
-      5000;
       $(`#${randomChosenColour}`).fadeOut(100).fadeIn(100);
-    });
-    setTimeout(() => {
-      5000;
       playSounds(randomChosenColour);
-    });
+    }, 500 * index);
     //$(`#${randomChosenColour}`).fadeOut(100).fadeIn(100);
   });
   //$(`#${randomChosenColour}`).fadeOut(100).fadeIn(100);
