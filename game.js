@@ -24,122 +24,51 @@ $(document).one("keypress", (e) => {
 });
 
 //checks which color is clicked and puts it in userClickedPattern
-function playerClicked() {
-  $(".btn").click((e) => {
-    let userChosenColour = e.target.id;
-    animatePress(userChosenColour);
-    console.log(userChosenColour);
-    // userClickedPattern.push(userChosenColour);
+$(".btn").click((e) => {
+  let userChosenColour = e.target.id;
+  animatePress(userChosenColour);
+  console.log(userChosenColour);
 
-    playSounds(userChosenColour);
-    compareButtonClicked(userChosenColour);
-
-    // arrayEquals(userClickedPattern, gamePattern);
-
-    // if (arrayEquals(userClickedPattern, gamePattern)) {
-    //   nextSequence();
-    // } else {
-    //   var audio = new Audio("sounds/wrong.mp3");
-    //   audio.play();
-    // }
-
-    //nextSequence();
-  });
-}
+  playSounds(userChosenColour);
+  compareButtonClicked(userChosenColour);
+});
 
 function compareButtonClicked(buttonClicked) {
   userClickedPattern.push(buttonClicked);
-  // if (userClickedPattern.length < gamePattern.length) {
-  //   console.log(userClickedPattern.length);
-  //   console.log(gamePattern.length);
 
-  //   if (userClickedPattern[index] === gamePattern[index]) {
-  //     nextSequence();
-  //     console.log("going to next sequence");
-  //   }
-  // } else {
-  //   console.log("Oops wrong color");
-  // }
   let newColorIndex = userClickedPattern.length - 1;
-  console.log("NEW COLOR", userClickedPattern[newColorIndex]);
-  console.log("GAME PATTERN COLOR", gamePattern[newColorIndex]);
+  //console.log("NEW COLOR", userClickedPattern[newColorIndex]);
+  //console.log("GAME PATTERN COLOR", gamePattern[newColorIndex]);
 
-  userClickedPattern.forEach((color, index) => {
-    if (color !== gamePattern[index]) {
-      alert("oops wrong color");
+  var failed = false;
+
+  for (var i = 0; i < userClickedPattern.length; i++) {
+    if (userClickedPattern[i] == gamePattern[i]) {
+      failed = false;
+    } else {
+      failed = true;
     }
-  });
-
-  // if (userClickedPattern[newColorIndex] === gamePattern[newColorIndex]) {
-  console.log("correct color chosen");
-  if (userClickedPattern.length === gamePattern.length) {
-    // console.log("going to next sequence");
-    // console.log("userClickedPattern", userClickedPattern);
-    userClickedPattern = [];
-    console.log("userClickedPattern", userClickedPattern);
-    nextSequence();
-  } else {
-    console.log("continuing");
   }
-  // } else {
-  //   console.log("oops wrong color");
-  //   $("h1").text("Game Over" + "\n" + "Press Any Key to start again!");
 
-  //   gameStart = false;
-  //   $(document).one("keypress", (e) => {
-  //     gameStart = true;
-  //     console.log(e);
-  //     gamePattern = [];
-  //     userClickedPattern = [];
-  //     level = 0;
-  //     //initiates the game
-  //     nextSequence();
-  //   });
-  // }
-  // if (userClickedPattern[newColorIndex] === gamePattern[newColorIndex]) {
-  //   console.log("correct color chosen");
-  //   if (userClickedPattern.length === gamePattern.length) {
-  //     console.log("going to next sequence");
-  //     console.log("userClickedPattern", userClickedPattern);
-  //     nextSequence();
-  //   } else {
-  //     console.log("continuing");
-  //   }
-  // } else {
-  //   console.log("oops wrong color");
-  // }
+  if (!failed) {
+    console.log("correct pattern!");
+    if (
+      userClickedPattern.length == gamePattern.length &&
+      arrayEquals(userClickedPattern, gamePattern)
+    )
+      nextSequence();
+  } else {
+    console.log("FAILED");
 
-  // userClickedPattern.forEach((clickedColor, index) => {
-  //   if (userClickedPattern.length === gamePattern.length) {
-  //   }
-  //   if (clickedColor === gamePattern[index]) {
-  //     nextSequence();
-  //     console.log("going to next sequence");
-  //   } else {
-  //     console.log("Oops wrong color");
-  //   }
+    //game pattern
+    gamePattern = [];
 
-  //   //Evaluate if user pattern is the same length as gamePattern
-  //   //If not add more to user pattern
+    //user clicked pattern
+    userClickedPattern = [];
 
-  //   // for (i = 0; clickedColor.length <= gamePattern.length; i++) {
-  //   //   playerClicked();
-
-  //   //Evaluate both patterns if they don't have the same value on
-  //   //the same index end game and start over
-  //   // if (clickedColor[i] === gamePattern[i]) {
-  //   //   console.log(clickedColor);
-  //   //   nextSequence();
-  //   // } else {
-  //   //   console.log("Opps wrong color");
-  //   // }
-  //   //}
-
-  //   //If User Pattern is the same length as gamePattern and
-  //   //both index has the same values go to nextSequence
-
-  //   //Clear user pattern
-  // });
+    //game level
+    level = 0;
+  }
 }
 
 function arrayEquals(a, b) {
@@ -154,6 +83,7 @@ function arrayEquals(a, b) {
 }
 
 function nextSequence() {
+  userClickedPattern = [];
   $("h1").text("Level" + " " + level);
   level++;
   //random number generator
@@ -162,12 +92,24 @@ function nextSequence() {
   //random color pick
   var randomChosenColour = buttonColours[randNum];
   gamePattern.push(randomChosenColour);
+  console.log(gamePattern);
   //simon sound generator
-  playSounds(randomChosenColour);
+  //playSounds(randomChosenColour);
   //highlights color picked]
-  console.log("new color", randomChosenColour);
-  $(`#${randomChosenColour}`).fadeOut(100).fadeIn(100);
-  playerClicked(gamePattern);
+  //console.log("new color", randomChosenColour);
+  gamePattern.forEach((randomChosenColour) => {
+    setTimeout(() => {
+      5000;
+      $(`#${randomChosenColour}`).fadeOut(100).fadeIn(100);
+    });
+    setTimeout(() => {
+      5000;
+      playSounds(randomChosenColour);
+    });
+    //$(`#${randomChosenColour}`).fadeOut(100).fadeIn(100);
+  });
+  //$(`#${randomChosenColour}`).fadeOut(100).fadeIn(100);
+  //playerClicked(gamePattern);
   return randNum;
 }
 
