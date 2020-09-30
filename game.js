@@ -64,31 +64,38 @@ function compareButtonClicked(buttonClicked) {
   console.log("NEW COLOR", userClickedPattern[newColorIndex]);
   console.log("GAME PATTERN COLOR", gamePattern[newColorIndex]);
 
-  if (userClickedPattern[newColorIndex] === gamePattern[newColorIndex]) {
-    console.log("correct color chosen");
-    if (userClickedPattern.length === gamePattern.length) {
-      console.log("going to next sequence");
-      console.log("userClickedPattern", userClickedPattern);
-      nextSequence();
-      userClickedPattern.length[0];
-    } else {
-      console.log("continuing");
+  userClickedPattern.forEach((color, index) => {
+    if (color !== gamePattern[index]) {
+      alert("oops wrong color");
     }
-  } else {
-    console.log("oops wrong color");
-    $("h1").text("Game Over" + "\n" + "Press Any Key to start again!");
+  });
 
-    gameStart = false;
-    $(document).one("keypress", (e) => {
-      gameStart = true;
-      console.log(e);
-      gamePattern = [];
-      userClickedPattern = [];
-      level = 0;
-      //initiates the game
-      nextSequence();
-    });
+  // if (userClickedPattern[newColorIndex] === gamePattern[newColorIndex]) {
+  console.log("correct color chosen");
+  if (userClickedPattern.length === gamePattern.length) {
+    // console.log("going to next sequence");
+    // console.log("userClickedPattern", userClickedPattern);
+    userClickedPattern = [];
+    console.log("userClickedPattern", userClickedPattern);
+    nextSequence();
+  } else {
+    console.log("continuing");
   }
+  // } else {
+  //   console.log("oops wrong color");
+  //   $("h1").text("Game Over" + "\n" + "Press Any Key to start again!");
+
+  //   gameStart = false;
+  //   $(document).one("keypress", (e) => {
+  //     gameStart = true;
+  //     console.log(e);
+  //     gamePattern = [];
+  //     userClickedPattern = [];
+  //     level = 0;
+  //     //initiates the game
+  //     nextSequence();
+  //   });
+  // }
   // if (userClickedPattern[newColorIndex] === gamePattern[newColorIndex]) {
   //   console.log("correct color chosen");
   //   if (userClickedPattern.length === gamePattern.length) {
