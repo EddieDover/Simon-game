@@ -68,7 +68,12 @@ function compareButtonClicked(buttonClicked) {
 
     //user clicked pattern
     userClickedPattern = [];
-    $("h1").text("Game Over!" + "\nPress Any Key to Start Over");
+    $("h1").text("Game Over! \n Press Any Key to Start Over");
+    $("body").addClass("game-over");
+    setTimeout(() => {
+      $("body").removeClass("game-over");
+    }, 200);
+
     var audio = new Audio("sounds/wrong.mp3");
     setTimeout(() => {
       audio.play();
